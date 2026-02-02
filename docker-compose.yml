@@ -2,8 +2,8 @@ version: '1.0'
 services:
   db:
     image: "postgres"
-      #container_name: dadbank_db
-      #restart: unless-stopped
+    #container_name: dadbank_db
+    restart: unless-stopped
     volumes:
       - postgres_data:/var/lib/postgresql
       - initdb:/docker-entrypoint-initdb.d
@@ -14,9 +14,9 @@ services:
   app:
     image: "geos74/dadbank:1.0.0"
     #container_name: dadbank_app
-    #restart: unless-stopped
-    #depends_on:
-    #  - db  # Ждём запуска БД
+    restart: unless-stopped
+    depends_on:
+      - db  # Ждём запуска БД
     volumes:
       - initdb:/dadbank/libs/
       - ./secret.env:/dadbank/secret.env
