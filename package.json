@@ -7,10 +7,14 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
+    "db:init": "node ./libs/db.init.js",
+    "db:drop": "node ./libs/db.init.js --drop",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "dotenv": "^17.2.3",
+    "log4js": "^6.9.1",
+    "pg": "^8.18.0",
     "telegraf": "^4.16.3"
   }
 }
