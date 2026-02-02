@@ -1,4 +1,4 @@
-require('dotenv').config({ path: './secret.env', override: true });
+require('dotenv').config({ path: './secret.env' });
 
 module.exports = {
   bot: {
