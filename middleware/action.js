@@ -2,13 +2,13 @@ const db = require('../libs/db');
 
 module.exports.deposit = async (ctx) => {
   const [action, username, price] = ctx.message.text.split(' ');
-  await _deposit(action, username, price);
+  await _deposit(username, price);
   ctx.reply(`Деньги внесены на счёт!`);
 }
 
 module.exports.withdraw = async (ctx) => {
   const [action, username, price] = ctx.message.text.split(' ');
-  await _deposit(action, username, -price);
+  await _deposit(username, -price);
   ctx.reply(`Снятие денег!`);
 }
 
@@ -30,12 +30,12 @@ module.exports.stateCheck = async (ctx) => {
     `);
 }
 
-async function _deposit(username, action, price) {
+async function _deposit(username, price) {
   return db.query(`INSERT INTO transaction
-    (action, username, price)
-    VALUES ($1, $2, $3)
+    (username, price)
+    VALUES ($1, $2)
     RETURNING *
-    `, [username, action, price]);
+    `, [username, price]);
 }
 
 async function _stateCheck(username) {
@@ -55,5 +55,5 @@ module.exports.stateMyCheck = async (ctx) => {
     maximumFractionDigits: 0
   });
 
-  ctx.reply(`Привет ${ctx.user.name}!\nдоступный остаток по счёту: ${state} р.`);
+  ctx.reply(`Привет, ${ctx.user.name}!\nдоступный остаток по счёту: ${state} р.`);
 }
